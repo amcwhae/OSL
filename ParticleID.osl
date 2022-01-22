@@ -1,0 +1,12 @@
+// Shader to get the Particle ID
+
+shader GetParticleID
+[[ string help = "Get the Particle instance ID",
+   string label = "Particle ID",
+   string category = "Scene Attributes" ]]
+(
+	output int ID = 1
+)
+{
+	getattribute("paID", ID);	
+}

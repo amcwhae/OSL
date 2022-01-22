@@ -1,0 +1,35 @@
+color safe_mix(color onecolor, color anothercolor, float mixvalue)
+{
+	return mix(onecolor, anothercolor, clamp(mixvalue, 0, 1));
+}
+
+float fract(float in)
+{
+	return abs(fmod(in, 1.0));
+}
+
+shader RadialGradient
+[[	string label = "Radial Gradient",
+	string help = "Simple linear radial gradient",
+	string category = "Textures"
+]]
+( 
+	point UV = point(u, v, 0), 
+	point Center = point(0.5, 0.5, 0.0),
+	float Radius = 0.5, 
+	color A = color(1,1,1),
+	color B = color(0,0,0),
+	float Scale = 1.0, 
+	output color Result = 0
+)
+{
+	point pnt = UV / Scale;
+	
+	float f = 1.0;
+	
+	float dist = distance(pnt, Center);
+	
+	if (dist < Radius) f = dist/Radius;
+	
+	Result = safe_mix(A, B, f);
+}

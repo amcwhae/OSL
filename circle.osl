@@ -1,0 +1,34 @@
+color safe_mix(color onecolor, color anothercolor, float mixvalue)
+{
+	return mix(onecolor, anothercolor, clamp(mixvalue, 0, 1));
+}
+
+float fract(float in)
+{
+	return abs(fmod(in, 1.0));
+}
+
+shader Circle
+[[ string help = "Simple Circle Shape",
+   string category = "Textures"
+]]
+( 
+	point UV = point(u, v, 0), 
+	point Center = point(0.5, 0.5, 0.0),
+	float Radius = 0.4, 
+	color A = color(0,0,0),
+	color B = color(1,1,1),
+	float Scale = 1.0, 
+	output color Result = 0
+)
+{
+	point pnt = UV / Scale;
+	
+	float f = 0.0;
+	
+	float dist = distance(pnt, Center);
+	
+	if (dist < Radius) f = 1.0;
+	
+	Result = safe_mix(A, B, f);
+}
